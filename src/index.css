@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+
+  /* ── Palette (точь-в-точь сайт Сайдаҳтам Атоев) ── */
+  --color-bg:          #060a12;   /* night-950 */
+  --color-night-900:   #0c1424;
+  --color-night-850:   #0f1a2e;
+  --color-night-800:   #141e33;
+  --color-night-750:   #1a2740;
+
+  /* Стекло — на базе night-800, с cyan-тинтом вместо белого */
+  --color-glass:        rgba(20, 30, 51, 0.55);
+  --color-glass-heavy:  rgba(20, 30, 51, 0.88);
+  --color-glass-border: rgba(34, 211, 238, 0.12);
+
+  /* Акцент cyan — точный цвет сайта */
+  --color-accent:     #22d3ee;   /* cyan-400  */
+  --color-accent-sky: #38bdf8;   /* sky-400   */
+
+  --color-text-primary: #f1f5f9;
+  --color-text-muted:   #94a3b8;
+  --color-wa:           #25d366;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #060a12;
+    color: #94a3b8;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    /* Единственный мягкий cyan-blob сверху-справа, как на сайте */
+    background-image:
+      radial-gradient(ellipse 80% 50% at 100% 0%, rgba(34, 211, 238, 0.08), transparent 55%),
+      radial-gradient(ellipse 60% 40% at 0%  80%, rgba(56, 189, 248, 0.06), transparent 50%);
+  }
+
+  ::selection {
+    background-color: rgba(34, 211, 238, 0.25);
+    color: #f8fafc;
+  }
+}
+
+@layer utilities {
+  /* Скрыть скроллбар (для горизонтального таб-бара на мобилке) */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Стекло — night-800 фон + cyan border */
+  .glass {
+    background-color: rgba(20, 30, 51, 0.55);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(34, 211, 238, 0.12);
+  }
+  .glass-heavy {
+    background-color: rgba(20, 30, 51, 0.88);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(34, 211, 238, 0.15);
+  }
+}
+
+/* Custom scrollbar — cyan, как на сайте */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(34, 211, 238, 0.22);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.38);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* ── iOS: предотвращает авто-зум при фокусе на инпуте (font-size < 16px) ── */
+@media screen and (max-width: 767px) {
+  input[type=number],
+  input[type=text] {
+    font-size: 16px !important;
+  }
+}
+
+/* ── Safe area для устройств с notch (iPhone X+) ── */
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+.pb-safe {
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
